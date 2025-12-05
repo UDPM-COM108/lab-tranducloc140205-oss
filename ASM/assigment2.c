@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <math.h>
 
+
 int main(){
 int luaChon; 
 do{
+printf("|---WELCOME TO DUCLOC PS49282 ASSIGNMENT COM108---|\n");
+printf("|------------------MENU-----------------------------|\n");
 printf("1.Chuc nang kiem tra so nguyen\n"); 
 printf("2.Chuc nang tim uoc so chung va boi so chung cua 2 so\n");
 printf("3.Chuc nang chuong trinh tinh tien cho quan karaoke\n");
@@ -102,8 +105,7 @@ switch(luaChon){
         }
         if( gio >3){
             tongTien = gio *(gia3gio * 0.7);
-        }else if (gio
-      >=14 && gio <= 17){
+        }else if (gio>=14 && gio <= 17){
             tongTien = gio *(gia3gio *0.6);
         }
     
@@ -135,9 +137,45 @@ switch(luaChon){
         }
         printf("Hien thi ra so tien can phai tra: %f", money);
          break;
-    }
+    } 
+    case 5:{
+    int tien; 
+    int menhGia[]={500,200,100,50,20,10,5,2,1};
+    int soTo;
+    printf("Nhap so tien can doi: "); 
+    scanf("%d", &tien); 
 
-    
+    printf("Cac menh gia doi duoc:\n");
+    for(int i=0;i<9;i++){
+        soTo = tien/menhGia[i]; //sô tờ của mệnh giá hiện tại 
+        if(soTo>0){
+            printf("%d to %d\n", soTo, menhGia[i]);
+            tien = tien% menhGia[i]; //số tiền còn lại
+        }
+    }
+    break;
+    }
+    case 6:{
+        float tienVay; 
+        float laiSuat=0.05;
+        int thang=12;
+        printf("Nhap so tien muon vay: ");
+        scanf("%f", &tienVay);
+
+        float gocPhaiTra; 
+        float duNo = tienVay;
+        float tienLai, tongTra;
+
+        printf("\nKy han | Lai phai tra | Goc phai tra | So tien phai tra | so tien con lai\n");
+        for(int i=1;i< thang;i++){
+            gocPhaiTra = tienVay/thang;
+            tienLai = duNo * laiSuat;
+            tongTra =  gocPhaiTra + tienLai; 
+            duNo = duNo - gocPhaiTra; 
+            printf("%6d | %13.0f | %13.0f | %14.0f | %14.0f\n", i, tienLai, gocPhaiTra, tongTra, duNo);
+        }
+        break;
+    }    
     case 0: 
       printf("Thoat chuong trinh\n");
       exit(0);
