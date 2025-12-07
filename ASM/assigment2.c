@@ -1,8 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
+struct SINHVIEN{
+    char HOTEN[50];
+    float diem;
+    char HOCLUC[20];
+};
 
+typedef struct SINHVIEN SV;
+//Hàm xếp loại học lực 
+void xeploai(SV *sv){
+if(sv->diem >=9.0)  strcpy(sv->HOCLUC, "Xuat Sac" );
+else if(sv->diem >= 8.0 && sv->diem <9.0) strcpy(sv->HOCLUC, "Gioi");
+else if(sv->diem >= 7.0 && sv->diem <8.0) strcpy(sv->HOCLUC, "Kha"); 
+else if(sv->diem >= 5.0 && sv->diem <7.0) strcpy(sv->HOCLUC, "Trung Binh");
+else strcpy(sv->HOCLUC, "Yeu");
+}
+//Hàm sắp xếp theo thứ tự giảm dần
+void sapxep(SV a[], int n){
+    for(int i = 0; i <n-1;i++){
+        for(int j =i +1; j< n;j++){
+            if(a[i].diem < a[j].diem){
+                SV temp = a[i];
+                a[i]=a[j];
+                a[j]= temp;
+            }
+        }
+    }
+} 
 int main(){
 int luaChon; 
 do{
@@ -176,7 +203,74 @@ switch(luaChon){
         }
         break;
     }    
-    case 0: 
+    case 7:{
+        float soPhanTram;
+        float laiNam = 0.15; //lãi mỗi năm 
+        int thang = 288; //so thang trong 24 nam 
+        int soTienXe;
+        int tienVay;
+        float soPhanTramTraTruoc;
+        int tienTraTruoc;
+        printf("Nhap so tien mua xe: ");
+        scanf("%d", &soTienXe); 
+        printf("Nhap so phan tram vay toi da: ");
+        scanf("%f", &soPhanTram);
+        int traTruoc = soTienXe - tienVay;  
+        tienVay = soPhanTram  * soTienXe;
+        soPhanTramTraTruoc = 1 - soPhanTram; 
+        tienTraTruoc = tienVay * soPhanTram; 
+        printf("So tien vay cua ban la: %d", tienVay);
+
+        float laiThang; 
+        float laiTong; 
+        float tongTien, tongTienMoiThang; 
+        float soTienTraLanDau;
+        soTienTraLanDau = soTienXe - tienVay; 
+             printf("\nSo tien phai tra lan dau: %.2f\n", soTienTraLanDau);
+        if(tienVay > 500000000){
+            printf("Ly nuoc cam chac ma chua the nhap moi ten anh nam tron trong tam thuc chua nguoi tam no nu cuoi tren moi manh me mot lan thoi tra loi rang em khong dau nua roi\n");
+        }else if("tienVay <= 500000000"){    
+            laiThang = laiNam*12;
+            laiTong = laiThang * thang; 
+            tongTien = tienVay * laiTong; 
+            tongTienMoiThang = tongTien/thang; 
+            printf("\nSo tien tra hang thang: %.2f\n", tongTienMoiThang);
+        }
+        break;
+    }
+    case 8: {
+        int n; 
+        printf("Nhap so luong sinh vien: ");
+        scanf("%d", &n);
+        getchar();
+
+        SV sv[n];
+
+        //Nhập thông tin sinh viên 
+        int i;
+        for(int i=0; i<n;i++){
+            printf("\nNhap ho va ten sinh vien: %d\n", i+1);
+            fgets(sv[i].HOTEN, sizeof(sv[i].HOTEN), stdin);
+            sv[i].HOTEN[strcspn(sv[i].HOTEN, "\n")] =0;
+        
+
+        printf("Nhap diem cua ban: "); 
+        scanf("%f", &sv[i].diem);
+        getchar();
+
+        xeploai(&sv[i]);
+        }
+        //Sắp xếp thứ tự giảm dần 
+        sapxep(sv, n);
+
+        //Xuất thông tin 
+        printf("\n---Danh Sach Sau khi Sap Xep---\n");
+        printf("%-25s %-10s %-15s\n", "Ho Ten", "Diem", "Hoc Luc");
+
+        for(int i=0; i<n;i++){
+        printf(" %-25s %-10f %-15s\n", sv[i].HOTEN, sv[i].diem , sv[i].HOCLUC);
+    }
+    }   
       printf("Thoat chuong trinh\n");
       exit(0);
       break;
