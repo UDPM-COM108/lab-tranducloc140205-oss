@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <time.h>
 
 struct SINHVIEN{
     char HOTEN[50];
@@ -40,7 +41,7 @@ printf("2.Chuc nang tim uoc so chung va boi so chung cua 2 so\n");
 printf("3.Chuc nang chuong trinh tinh tien cho quan karaoke\n");
 printf("4.Chuc nang tinh tien dien\n");
 printf("5.Chuc nang doi tien\n");
-printf("6.Chuc nang xay dung chuc nang tinh la xuat vay ngan hang vay tra gop\n");
+printf("6.Chuc nang xay dung chuc nang tinh lai xuat vay ngan hang vay tra gop\n");
 printf("7.Chuc nang xay dung chuong trinh vay tien mua xe\n");
 printf("8.Chuc nang sap xep thong tin sinh vien\n");
 printf("9.Chuc nang xay dung game FPOLY-LOTT(2/15) \n");
@@ -228,7 +229,7 @@ switch(luaChon){
         soTienTraLanDau = soTienXe - tienVay; 
              printf("\nSo tien phai tra lan dau: %.2f\n", soTienTraLanDau);
         if(tienVay > 500000000){
-            printf("Ly nuoc cam chac ma chua the nhap moi ten anh nam tron trong tam thuc chua nguoi tam no nu cuoi tren moi manh me mot lan thoi tra loi rang em khong dau nua roi\n");
+            printf("So tien khong hop le!!\n");
         }else if("tienVay <= 500000000"){    
             laiThang = laiNam*12;
             laiTong = laiThang * thang; 
@@ -271,6 +272,34 @@ switch(luaChon){
         printf(" %-25s %-10f %-15s\n", sv[i].HOTEN, sv[i].diem , sv[i].HOCLUC);
     }
     }   
+    case 9: {
+        srand(time(NULL));
+        int r1,r2; 
+        int m, n; 
+        int match =0;
+        printf("Nhap vao so m: "); 
+        scanf("%d", &m); 
+        printf("Nhap vao so n: ");
+        scanf("%d", &n); 
+        r1= 1+ rand()%15;
+        r2=1+ rand()%15;
+        printf("\nHe thong sinh ra: %d - %d\n", r1, r2);
+        if( m == r1 || m == r2) match++;
+        if(n == r1 || n == r2) match++;
+
+
+
+        if(match ==0){
+            printf("Chuc ban may man lan sau\n");
+        }else if(match ==1){
+            printf("Chuc ban da trung giai nhi\n");
+        }else if(match==2){
+            printf("Chuc ban da trung giai nhat\n");
+        }
+        break;
+    }
+        
+    case 0:
       printf("Thoat chuong trinh\n");
       exit(0);
       break;
